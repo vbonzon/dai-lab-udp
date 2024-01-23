@@ -6,7 +6,7 @@ public class Auditor{
         System.out.println("Démarrage Auditor");
 
         MusicianListener musicianListener = new MusicianListener();
-        TCPListener tcpListener = new TCPListener();
+        TCPListener tcpListener = new TCPListener(musicianListener);
         ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
 
         try{
