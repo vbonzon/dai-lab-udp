@@ -40,7 +40,7 @@ public class MusicianListener implements Runnable{
         }
     }
 
-    public List<Musician> getMuscians(){
+    public List<Musician> getMusicians(){
         return musicians;
     }
 }
