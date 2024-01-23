@@ -2,6 +2,8 @@ import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.DatagramPacket;
 import java.net.InetSocketAddress;
+
+
 import static java.nio.charset.StandardCharsets.*;
 
 public class Musician{
@@ -12,10 +14,8 @@ public class Musician{
             System.out.println("Instrument argument is missing !");
             return;
         }
-        Instrument instrument = readArg(args[0]);
         
-        startSending(instrument);
-               
+        startSending(readArg(args[0]));
 
     }
 
@@ -34,19 +34,23 @@ public class Musician{
 
         try(DatagramSocket socket= new DatagramSocket()) {
             
+            //Récupérer le message selon l'instrument
             String message = i.doSound();
             byte[] payload = message.getBytes(UTF_8);
 
-
+            //Créer l'adresse de destination
             var dest_address = new InetSocketAddress(multicastAddress, PORT);
+            //Créer le packet
             var packet = new DatagramPacket(payload,payload.length,dest_address);
 
             long lastSec = 0;
             while(true){
                 long sec = System.currentTimeMillis() / 1000;
+                //Toutes les secondes envoyer le même packet
                 if (sec != lastSec) {
                     socket.send(packet);
-                    System.out.println(i.doSound());
+                    
+                    System.out.println(new String(packet.getData(), UTF_8));
                     lastSec = sec;
                 }
             }

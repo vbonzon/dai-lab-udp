@@ -27,6 +27,28 @@
                     </archive>
                 </configuration>
             </plugin>
+			<plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                <descriptorRefs>
+                    <descriptorRef>jar-with-dependencies</descriptorRef>
+                </descriptorRefs>
+                 <archive>
+                    <manifest>
+                        <mainClass>Auditor</mainClass>
+                    </manifest>
+                </archive>
+                </configuration>
+                
+            </plugin>
         </plugins>
     </build>
+	<dependencies>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.10.1</version>
+		</dependency>
+	</dependencies>
 </project>
