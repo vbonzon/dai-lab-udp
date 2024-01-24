@@ -22,6 +22,7 @@ public class TCPListener implements Runnable {
                 System.out.println("Waiting connection...");
                 try (Socket socket = serverSocket.accept();
                     var out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), UTF_8))) {
+                        //changer la hashmap en liste de musicians
                         var musicians = musicianListener.getMusicians();
                         for(Musician m : musicians){
                             if(m.isTimeOut()){

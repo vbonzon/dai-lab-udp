@@ -3,12 +3,13 @@ import java.util.Date;
 public class Musician {
     private static long timeout = 5000;
     private String uuid;
-    private Instrument instrument;
+    private Instrument.Sound instrument;
     private long lastTimeHeared;
     
 
     public Musician(Instrument i) {
-        instrument = i;
+        instrument = i.getInstrument();
+        this.uuid = i.uuid; 
         lastTimeHeared = System.currentTimeMillis();
     }
 
