@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.gson.Gson;
 
@@ -15,7 +16,8 @@ public class MusicianListener implements Runnable{
     private final static int PORT = 9904;
     private final static String ADDR = "239.255.22.5";
     private LinkedList<Musician> musicians = new LinkedList<>();
-    public HashMap<String, Musician> musicians_map = new HashMap<>();
+    public ConcurrentHashMap<String, Musician> musicians_map = new ConcurrentHashMap<>();
+  
 
     @Override
     public void run() {
