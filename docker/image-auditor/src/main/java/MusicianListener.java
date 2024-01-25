@@ -15,7 +15,7 @@ public class MusicianListener implements Runnable{
     private final static int PORT = 9904;
     private final static String ADDR = "239.255.22.5";
     private LinkedList<Musician> musicians = new LinkedList<>();
-    private HashMap<String, Musician> musicians_map = new HashMap<>();
+    public HashMap<String, Musician> musicians_map = new HashMap<>();
 
     @Override
     public void run() {
@@ -33,24 +33,24 @@ public class MusicianListener implements Runnable{
 
                 String msg = new String(packet.getData(), 0, packet.getLength(), UTF_8);
                 System.out.println(msg + "\n");
-                Instrument i = gson.fromJson(msg, Instrument.class);
+                UDPPacket p = gson.fromJson(msg, UDPPacket.class);
 
-                if(!musicians_map.containsKey(i.uuid)){
-                    musicians_map.put(i.uuid, new Musician(i));
+                if(!musicians_map.containsKey(p.uuid)){
+                    musicians_map.put(p.uuid, new Musician(p));
                 }
                 else{
-                    musicians_map.get(i.uuid).update();
+                    musicians_map.get(p.uuid).update();
                 }
                 
             }
 
             
         } catch (Exception e) {
-            // TODO: handle exception
+            System.out.println("Problem during multicast socket setup : " + e);
         }
     }
 
-    public List<Musician> getMusicians(){
-        return musicians;
+    public Map<String,Musician> getMusicians(){
+        return musicians_map;
     }
 }

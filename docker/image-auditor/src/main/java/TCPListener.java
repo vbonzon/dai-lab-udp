@@ -1,5 +1,7 @@
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
+import java.util.Map;
 import static java.nio.charset.StandardCharsets.*;
 import com.google.gson.Gson;
 
@@ -23,14 +25,20 @@ public class TCPListener implements Runnable {
                 try (Socket socket = serverSocket.accept();
                     var out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), UTF_8))) {
                         //changer la hashmap en liste de musicians
+                        
                         var musicians = musicianListener.getMusicians();
-                        for(Musician m : musicians){
-                            if(m.isTimeOut()){
-                                musicians.remove(m);
+                        ArrayList<Musician> listMusicians = new ArrayList<>();
+                        for(Map.Entry<String, Musician> m : musicians.entrySet()){
+
+                            if(m.getValue().isTimeOut()){
+                                musicians.remove(m.getKey());
+                            }
+                            else{
+                                listMusicians.add(m.getValue());
                             }
                         }
 
-                        String output = gson.toJson(musicians);
+                        String output = gson.toJson(listMusicians);
 
                         out.write(output + "\n");
                         out.flush();

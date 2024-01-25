@@ -20,25 +20,25 @@ public class Musician{
 
     }
 
-    private static Instrument.Sound readArg(String arg){
+    private static Instrument readArg(String arg){
         switch (arg) {
-            case "piano":   return Instrument.Sound.piano;
-            case "flute":   return Instrument.Sound.flute;
-            case "trumpet": return Instrument.Sound.trumpet;
-            case "violin":  return Instrument.Sound.violin;
-            case "drum":    return Instrument.Sound.drum;
+            case "piano":   return Instrument.piano;
+            case "flute":   return Instrument.flute;
+            case "trumpet": return Instrument.trumpet;
+            case "violin":  return Instrument.violin;
+            case "drum":    return Instrument.drum;
             default:        return null;
         }
     }
 
-    private static void startSending(Instrument.Sound s){
+    private static void startSending(Instrument i){
 
         try(DatagramSocket socket= new DatagramSocket()) {
             
             //Récupérer le message selon l'instrument
-            Instrument instr = new Instrument(s);
+            UDPPacket p = new UDPPacket(i);
             Gson gson = new Gson();
-            String message = gson.toJson(instr);
+            String message = gson.toJson(p);
             byte[] payload = message.getBytes(UTF_8);
 
             //Créer l'adresse de destination
