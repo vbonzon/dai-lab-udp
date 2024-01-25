@@ -1,5 +1,3 @@
-import java.util.Date;
-
 public class Musician {
     private static long timeout = 5000;
     private String uuid;

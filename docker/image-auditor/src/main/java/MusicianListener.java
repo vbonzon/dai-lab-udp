@@ -2,9 +2,6 @@ import java.net.DatagramPacket;
 import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
 import java.net.NetworkInterface;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -15,7 +12,6 @@ import static java.nio.charset.StandardCharsets.*;
 public class MusicianListener implements Runnable{
     private final static int PORT = 9904;
     private final static String ADDR = "239.255.22.5";
-    private LinkedList<Musician> musicians = new LinkedList<>();
     public ConcurrentHashMap<String, Musician> musicians_map = new ConcurrentHashMap<>();
   
 
